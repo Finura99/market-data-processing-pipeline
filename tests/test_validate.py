@@ -59,3 +59,4 @@ def test_positive_prices():
     assert result.iloc[0]["ticker"] == "MSFT"  ##iloc property gets or sets the value of the specific index.
     assert result.iloc[0]["close_price"] <= 0
 
+

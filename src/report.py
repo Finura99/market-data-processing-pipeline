@@ -8,8 +8,8 @@ import sqlite3
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-PROCESSED_PATH = BASE_DIR / "data" / "processed" / "clean_prices.csv"
 ERROR_PATH = BASE_DIR / "data" / "errors" / "validation_errors.csv"
+PROCESSED_PATH = BASE_DIR / "data" / "processed" / "clean_prices.csv"
 SUMMARY_PATH = BASE_DIR / "data" / "processed" / "summary_report.txt"
 DB_PATH = BASE_DIR / "data" / "processed" / "market_data.db" #creates a db file
 
@@ -68,7 +68,7 @@ def get_average_return_by_ticker():
     SELECT ticker, AVG(daily_return) AS avg_daily_prices
     FROM prices
     GROUP BY ticker
-    ORDER BY avg_daily_return DESC;
+    ORDER BY avg_daily_prices DESC;
     """
 
     result = pd.read_sql(query, conn)
@@ -76,7 +76,7 @@ def get_average_return_by_ticker():
 
     return result
 
-def get_top_volume_names():
+def get_top_volume_names(df: pd.DataFrame):
     conn = sqlite3.connect(DB_PATH)
 
     query = """
@@ -86,7 +86,7 @@ def get_top_volume_names():
     LIMIT 5;
     """
     
-    result = pd.to_sql(query, conn)
+    result = df.to_sql(query, conn)
     conn.close()
 
     return result

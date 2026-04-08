@@ -41,7 +41,7 @@ project_root/
 
 ## Pipeline Flow
 
-Raw CSV > Ingest > Validate > Split > Valid Data > Transform > Save > SQL
+Raw CSV > Ingest > Validate > Splits > Valid Data > Transform > Save > SQL
                                       Invalid Data > Error Report
 
 

@@ -1,14 +1,15 @@
 
-from ingest import load_market_data
-from validate import get_invalid_rows, get_valid_rows
-from transform import calculate_metrics
-from report import save_valid_rows, save_invalid_rows, save_summary_report
-from report import save_to_database, get_top_gainers, get_average_return_by_ticker, get_top_volume_names
+from src.ingest import load_market_data
+from src.validate import get_invalid_rows, get_valid_rows
+from src.transform import calculate_metrics
+from src.report import save_valid_rows, save_invalid_rows, save_summary_report
+from src.report import save_to_database, get_top_gainers, get_average_return_by_ticker, get_top_volume_names
+
 import logging
 
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(messege)s"
+    format="%(asctime)s | %(levelname)s | %(message)s"
 ) # use this rather than print statement for traceability
 
 def main(): # loads and prints the rows
@@ -43,12 +44,6 @@ def main(): # loads and prints the rows
     logging.info("All averages in sql query executed successfully")
     print("\n All averages for all tickers from SQL:")
     print(averages)
-
-    top_volume = get_top_volume_names()
-
-
-
-
 
     logging.info("Pipeline finished sucessfully")
     
