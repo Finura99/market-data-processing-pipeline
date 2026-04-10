@@ -2,12 +2,12 @@ import pandas as pd
 
 def validate_ticker_present(df: pd.DataFrame) -> pd.DataFrame: # accepts df and returns as a df
 
-    return df[df["ticker"].isna()] # extracts rows where ticker values are missing
+    return df[df["ticker"].isna()] #detects ticker is missing in those rows. Boolean
 
 
 def validate_volume_non_negative(df: pd.DataFrame) -> pd.DataFrame:
 
-    return df[df["volume"] < 0] # 
+    return df[df["volume"] < 0] # detects volume under 0
 
 
 def validate_prices_positive(df: pd.DataFrame) -> pd.DataFrame:
@@ -22,7 +22,7 @@ def validate_prices_positive(df: pd.DataFrame) -> pd.DataFrame:
 
 def validate_trade_date(df: pd.DataFrame) -> pd.DataFrame:
     parsed_dates = pd.to_datetime(df["trade_date"], errors="coerce") # invalid parsing is set as NaT. 
-    invalid_rows = df[parsed_dates.isna()] #boolean check for empty value
+    invalid_rows = df[parsed_dates.isna()] # boolean check for empty value
 
     return invalid_rows
 

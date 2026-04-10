@@ -1,4 +1,3 @@
-
 from src.ingest import load_market_data
 from src.validate import get_invalid_rows, get_valid_rows
 from src.transform import calculate_metrics

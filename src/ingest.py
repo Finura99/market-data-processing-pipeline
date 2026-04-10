@@ -7,4 +7,4 @@ RAW_BASE_PATH = BASE_DIR / "data" / "raw" / "market_prices.csv" #builds path to 
 
 def load_market_data() -> pd.DataFrame: # converts and reads csv into a dataframe
     df = pd.read_csv(RAW_BASE_PATH)
-    return df # pandas dataframe
+    return df 
