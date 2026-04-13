@@ -30,7 +30,12 @@ def main(): # loads and prints the rows
     save_invalid_rows(invalid_rows)
     save_summary_report(df, transformed_valid, invalid_rows)
     save_to_database(transformed_valid)
-    get_top_volume_names(transformed_valid)
+
+    top_volume = get_top_volume_names()
+    logging.info("Top names with the highest volumes")
+    print("\n Top Volumes by Names")
+    print(top_volume)
+
     logging.info("Outputs saved: CSV's, summary report, and SQLits database")
 
 

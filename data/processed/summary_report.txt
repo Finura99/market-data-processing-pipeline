@@ -4,12 +4,13 @@ Market Data Processing Summary
 Total input rows: 6
 Valid Rows: 3
 Invalid rows: 3
+
 Top 3 Gainers:
 - BARC: 0.0082
-- AAPL: 0.0059
+- NVDA: 0.0041
 - HSBC: 0.0022
 
 Top 3 Losers:
 - HSBC: 0.0022
-- AAPL: 0.0059
+- NVDA: 0.0041
 - BARC: 0.0082

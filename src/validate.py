@@ -16,7 +16,7 @@ def validate_prices_positive(df: pd.DataFrame) -> pd.DataFrame:
         (df["high_price"] <= 0) |
         (df["low_price"] <= 0) |
         (df["close_price"] <= 0)
-    ]
+    ] 
 
     return invalid_rows
 
@@ -34,8 +34,6 @@ def validate_high_low(df: pd.DataFrame) -> pd.DataFrame:
 ##### 5 validatiuon rules #######
 
 
-
-
 def get_invalid_rows(df: pd.DataFrame) -> pd.DataFrame:
     invalid_tickers = validate_ticker_present(df)
     invalid_volumes = validate_volume_non_negative(df)
@@ -49,7 +47,7 @@ def get_invalid_rows(df: pd.DataFrame) -> pd.DataFrame:
         invalid_prices,
         invalid_dates,
         invalid_high_low
-        ]).drop_duplicates()
+        ]).drop_duplicates() # method to remove duplicate rows and columns.
     
     return invalid_rows
 

@@ -46,6 +46,9 @@ def save_to_database(df: pd.DataFrame):
 
     conn.close()
 
+
+    
+
 def get_top_gainers():
     conn = sqlite3.connect(DB_PATH)
 
@@ -76,7 +79,7 @@ def get_average_return_by_ticker():
 
     return result
 
-def get_top_volume_names(df: pd.DataFrame):
+def get_top_volume_names():
     conn = sqlite3.connect(DB_PATH)
 
     query = """
@@ -86,7 +89,7 @@ def get_top_volume_names(df: pd.DataFrame):
     LIMIT 5;
     """
     
-    result = df.to_sql(query, conn)
+    result = pd.read_sql(query, conn)
     conn.close()
 
     return result
