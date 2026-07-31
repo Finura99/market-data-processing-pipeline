@@ -1,6 +1,6 @@
 from src.ingest import load_market_data
 from src.validate import get_invalid_rows, get_valid_rows
-from src.transform import calculate_metrics
+from src.transform import calculate_market_metrics
 from src.report import save_valid_rows, save_invalid_rows, save_summary_report
 from src.report import save_to_database, get_top_gainers, get_average_return_by_ticker, get_top_volume_names
 
@@ -11,7 +11,10 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(message)s"
 ) # use this rather than print statement for traceability
 
-def main(): # loads and prints the rows
+def main(): 
+
+    
+    """Orchestrates the complete market-data processing pipeline"""
 
     logging.info("Started market data pipeline")
 
@@ -20,10 +23,15 @@ def main(): # loads and prints the rows
 
     invalid_rows = get_invalid_rows(df)
     valid_rows = get_valid_rows(df)
-    logging.info(f"Validation complete: {len(valid_rows)} valid rows, {len(invalid_rows)} rows")
+    logging.info(f"Validation complete: {len(valid_rows)} valid rows, "
+                 f"{len(invalid_rows)} invalid rows"
+                 )
 
-    transformed_valid = calculate_metrics(valid_rows)
-    logging.info("Transformation complete: calculated daily_return and price_spread")
+    transformed_valid = calculate_market_metrics(valid_rows)
+
+    logging.info(
+        "Transformation complete: calculated daily_return and price_spread"
+        )
 
 
     save_valid_rows(transformed_valid)
@@ -36,7 +44,7 @@ def main(): # loads and prints the rows
     print("\n Top Volumes by Names")
     print(top_volume)
 
-    logging.info("Outputs saved: CSV's, summary report, and SQLits database")
+    logging.info("Outputs saved: CSV's, summary report, and SQLite database")
 
 
     top = get_top_gainers()
