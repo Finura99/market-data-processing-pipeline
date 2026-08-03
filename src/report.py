@@ -26,9 +26,9 @@ def save_summary_report(original_df: pd.DataFrame, valid_df: pd.DataFrame, inval
     with open(SUMMARY_PATH, "w", encoding="utf-8") as f:
         f.write("Market Data Processing Summary\n")
         f.write("=================================\n\n")
-        f.write(f"Total input rows: {len(original_df)}\n")
-        f.write(f"Valid Rows: {len(valid_df)}\n")
-        f.write(f"Invalid rows: {len(invalid_df)}\n")
+        f.write(f"Total input rows: {len(original_df)}\n") # how many rows entered the pipeline
+        f.write(f"Valid Rows: {len(valid_df)}\n") # how many roles successully passed valdiation
+        f.write(f"Invalid rows: {len(invalid_df)}\n") # how many roles were rejected
 
         f.write("Top 3 Gainers:\n")
         for _, row in top_gainers.iterrows():
@@ -41,14 +41,12 @@ def save_summary_report(original_df: pd.DataFrame, valid_df: pd.DataFrame, inval
 def save_to_database(df: pd.DataFrame):
     conn = sqlite3.connect(DB_PATH) # connects to sqlite
 
-    df.to_sql("prices", conn, if_exists="replace", index=False) 
+    df.to_sql("prices", conn, if_exists="replace", index=False)
     # creates a table called prices in the db file
     # persists the clean df into SQLite
 
     conn.close()
 
-
-    
 
 def get_top_gainers():
     conn = sqlite3.connect(DB_PATH)
@@ -73,7 +71,7 @@ def get_average_return_by_ticker():
     SELECT ticker, AVG(daily_return) AS avg_daily_prices
     FROM prices
     GROUP BY ticker
-    ORDER BY avg_daily_prices DESC;
+    ORDER BY avg_daily_prices DESC;. pd_read_sql 
     """
 
     result = pd.read_sql(query, conn) # reads and converts to df
