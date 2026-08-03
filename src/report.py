@@ -2,8 +2,7 @@ from pathlib import Path
 import pandas as pd
 import sqlite3
 
-#file for writing and saving the outputs in errors or processed
-
+# file for writing and saving the outputs in errors or processed
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,14 +10,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ERROR_PATH = BASE_DIR / "data" / "errors" / "validation_errors.csv"
 PROCESSED_PATH = BASE_DIR / "data" / "processed" / "clean_prices.csv"
 SUMMARY_PATH = BASE_DIR / "data" / "processed" / "summary_report.txt"
-DB_PATH = BASE_DIR / "data" / "processed" / "market_data.db" #creates a db file
+DB_PATH = BASE_DIR / "data" / "processed" / "market_data.db" # creates a db file
 
 
 def save_valid_rows(df: pd.DataFrame):
-    df.to_csv(PROCESSED_PATH, index=False) #saves to clean prices
+    df.to_csv(PROCESSED_PATH, index=False) # writes clean records to CSV
 
 def save_invalid_rows(df: pd.DataFrame):
-    df.to_csv(ERROR_PATH, index=False) #saves to errors
+    df.to_csv(ERROR_PATH, index=False) # writes rejected records to error CSV
 
 def save_summary_report(original_df: pd.DataFrame, valid_df: pd.DataFrame, invalid_df: pd.DataFrame):
     top_gainers = valid_df.sort_values("daily_return", ascending=False) # highest at top
@@ -33,16 +32,18 @@ def save_summary_report(original_df: pd.DataFrame, valid_df: pd.DataFrame, inval
 
         f.write("Top 3 Gainers:\n")
         for _, row in top_gainers.iterrows():
-            f.write(f"- {row["ticker"]}: {row["daily_return"]:.4f}\n")
+            f.write(f"- {row["ticker"]}: {row['daily_return']:.4f}\n")
         
         f.write("\nTop 3 Losers:\n")
         for _, row in top_losers.iterrows():
-            f.write(f"- {row["ticker"]}: {row["daily_return"]:.4f}\n")
+            f.write(f"- {row['ticker']}: {row['daily_return']:.4f}\n")
 
 def save_to_database(df: pd.DataFrame):
-    conn = sqlite3.connect(DB_PATH) #connects to sqlite
+    conn = sqlite3.connect(DB_PATH) # connects to sqlite
 
-    df.to_sql("prices", conn, if_exists="replace", index=False) #creates a table called prices in the db file
+    df.to_sql("prices", conn, if_exists="replace", index=False) 
+    # creates a table called prices in the db file
+    # persists the clean df into SQLite
 
     conn.close()
 
@@ -55,11 +56,12 @@ def get_top_gainers():
     query = """
     SELECT ticker, daily_return
     FROM prices
-    ORDER BY daily_return DESC
+    ORDER BY 
+    daily_return DESC
     LIMIT 5;
     """
 
-    result = pd.read_sql(query, conn) #pulled results back in python
+    result = pd.read_sql(query, conn) # pulled results back in python
     conn.close()
 
     return result
@@ -74,7 +76,7 @@ def get_average_return_by_ticker():
     ORDER BY avg_daily_prices DESC;
     """
 
-    result = pd.read_sql(query, conn)
+    result = pd.read_sql(query, conn) # reads and converts to df
     conn.close()
 
     return result
