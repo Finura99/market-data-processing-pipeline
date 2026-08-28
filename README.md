@@ -1,8 +1,8 @@
-Market Data Processing Tool Pipeline
+# Market Data Processing Tool Pipeline
 
 ## Overview
 
-This project simulates a simplified equities data processing pipeline, similar to what might be used in a trading or equities  technology environment.
+This project simulates a simplified equities data processing pipeline, similar to what might be used in a trading or equities technology environment.
 
 It ingests raw market data from CSV, validates data quality, computes basic finance metrics, and outputs both clean datasets and error reports. The processed data is also stored in SQLite database and queried using SQL.
 
@@ -43,7 +43,6 @@ project_root/
 
 Raw CSV > Ingest > Validate > Splits > Valid Data > Transform > Save > SQL
                                       Invalid Data > Error Report
-
 
 ## Features
 
