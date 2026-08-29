@@ -70,7 +70,7 @@ Raw CSV > Ingest > Validate > Splits > Valid Data > Transform > Save > SQL
 - Stores processed data in SQL
 - Excecutes SQL queries (e.g. top gainers)
 
------------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 ## Example SQL Query
 
@@ -79,8 +79,3 @@ SELECT ticker, daily_return
 FROM prices
 ORDER BY daily_return DESC
 LIMIT 5;
-
-
-
-
-

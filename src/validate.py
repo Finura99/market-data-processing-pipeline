@@ -16,14 +16,15 @@ def validate_prices_positive(df: pd.DataFrame) -> pd.DataFrame:
         (df["high_price"] <= 0) |
         (df["low_price"] <= 0) |
         (df["close_price"] <= 0)
-    ] 
+    ]
 
     return invalid_rows
 
 def validate_trade_date(df: pd.DataFrame) -> pd.DataFrame:
     parsed_dates = pd.to_datetime(df["trade_date"], errors="coerce") # invalid parsing is set as NaT using errors. 
-    invalid_rows = df[parsed_dates.isna()] # boolean check for empty value
+    invalid_rows = df[parsed_dates.isna()] # boolean check for empty value 
 
+    # returns a series ?
     return invalid_rows
 
 def validate_high_low(df: pd.DataFrame) -> pd.DataFrame:
